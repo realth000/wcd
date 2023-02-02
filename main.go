@@ -55,33 +55,31 @@ func downloadFromMediaPlayPage(urlPath string, saveDir string) {
 	}
 	selections := doc.Find(`mpvoice.js_editor_audio.js_uneditable`)
 
-	if selections.Nodes == nil {
+	if selections.Nodes == nil || len(selections.Nodes) == 0 {
 		fmt.Println("failed to download: empty element grepped in", urlPath)
 		return
 	}
-	if len(selections.Nodes) != 1 {
-		fmt.Println("failed to get download path: multiple node caught", len(selections.Nodes))
-		exit()
-	}
-	path := html.NodeSearchAttr(selections.Nodes[0], "voice_encode_fileid")
-	if path == "" {
-		fmt.Println("failed to download: empty download path")
-		exit()
-	}
-	name := html.NodeSearchAttr(selections.Nodes[0], "name")
-	if name == "" {
-		fmt.Println("failed to download: empty file name")
-		exit()
-	}
-	fmt.Printf("download \"%s\" from %s\n", name, path)
-	mediaData, err := http.GetRequest(fmt.Sprintf("%s%s", mediaDownloadUrlPrefix, path))
-	if err != nil {
-		fmt.Println("failed to download:", err)
-		exit()
-	}
-	if err = os.WriteFile(fmt.Sprintf("%s/%s.mp3", saveDir, name), mediaData, 0644); err != nil {
-		fmt.Println("failed to save media file:", err)
-		exit()
+	for _, node := range selections.Nodes {
+		path := html.NodeSearchAttr(node, "voice_encode_fileid")
+		if path == "" {
+			fmt.Println("failed to download: empty download path")
+			exit()
+		}
+		name := html.NodeSearchAttr(node, "name")
+		if name == "" {
+			fmt.Println("failed to download: empty file name")
+			exit()
+		}
+		fmt.Printf("download \"%s\" from %s\n", name, path)
+		mediaData, err := http.GetRequest(fmt.Sprintf("%s%s", mediaDownloadUrlPrefix, path))
+		if err != nil {
+			fmt.Println("failed to download:", err)
+			exit()
+		}
+		if err = os.WriteFile(fmt.Sprintf("%s/%s.mp3", saveDir, name), mediaData, 0644); err != nil {
+			fmt.Println("failed to save media file:", err)
+			exit()
+		}
 	}
 }
 
