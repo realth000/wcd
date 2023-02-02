@@ -7,7 +7,9 @@ import (
 	"fmt"
 	"github.com/realth000/ToGoTool/html"
 	"github.com/realth000/ToGoTool/http"
+	"net/url"
 	"os"
+	"path/filepath"
 	"regexp"
 )
 
@@ -89,6 +91,14 @@ func main() {
 	   https://mp.weixin.qq.com/s?__biz=MzA4MzU2MjczOA==&mid=2247514662&idx=3&sn=bfa9d32d0e0ea0fe2717c8bbb886dddf&chksm=9ff663bba881eaad2b3feb1aa44fedda4ba5a292712cb2d74ef43f23283a0b5a664af84e7386&scene=21#wechat_redirect
 	   http://mp.weixin.qq.com/s?__biz=MzA4MzU2MjczOA==&mid=2247505249&idx=5&sn=89769d90328cf26375a8dc516032fbab&chksm=9ff60cfca88185ea5aa196f7bfe6baffef655c59eb785a7d80409fd838a7ac027c65c090d272&scene=21#wechat_redirect
 	*/
+	if len(os.Args) != 2 {
+		fmt.Printf("usage: %s <url>", filepath.Base(os.Args[0]))
+		exit()
+	}
+	if _, err := url.Parse(os.Args[1]); err != nil {
+		fmt.Println("invalid url:", err)
+		exit()
+	}
 	d, _ := os.Getwd()
 	downloadDir := fmt.Sprintf("%s%ctmp", d, os.PathSeparator)
 	info, err := os.Stat(downloadDir)
@@ -108,7 +118,7 @@ func main() {
 			exit()
 		}
 	}
-	mainDoc, err := html.DocumentFromUrl(`https://mp.weixin.qq.com/s?__biz=MzA4MzU2MjczOA==&mid=2247514662&idx=3&sn=bfa9d32d0e0ea0fe2717c8bbb886dddf&chksm=9ff663bba881eaad2b3feb1aa44fedda4ba5a292712cb2d74ef43f23283a0b5a664af84e7386&scene=21#wechat_redirect`)
+	mainDoc, err := html.DocumentFromUrl(os.Args[1])
 	if err != nil {
 		fmt.Println("failed to get main doc:", err)
 		exit()
