@@ -113,7 +113,7 @@ func main() {
 		}
 	}
 	if err == nil || (errors.Is(err, os.ErrExist) && !info.IsDir()) {
-		if err = os.Remove(downloadDir); err != nil {
+		if err = os.RemoveAll(downloadDir); err != nil {
 			fmt.Println("failed to remove file and make download directory:", err)
 			exit()
 		}
