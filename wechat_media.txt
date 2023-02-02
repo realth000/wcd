@@ -1,0 +1,16 @@
+1
+https://res.wx.qq.com/voice/getvoice?mediaid=MzA4MzU2MjczOF8yMjQ3NTA0NjI3
+https://res.wx.qq.com/voice/getvoice?mediaid=MzA4MzU2MjczOF8yMjQ3NTA0NjI4
+2
+https://res.wx.qq.com/voice/getvoice?mediaid=MzA4MzU2MjczOF8yMjQ3NTA1MDM4
+https://res.wx.qq.com/voice/getvoice?mediaid=MzA4MzU2MjczOF8yMjQ3NTA1MDYy
+3
+https://res.wx.qq.com/voice/getvoice?mediaid=MzA4MzU2MjczOF8yMjQ3NTA1MjQ1
+https://res.wx.qq.com/voice/getvoice?mediaid=MzA4MzU2MjczOF8yMjQ3NTA1MjQ2
+4
+https://res.wx.qq.com/voice/getvoice?mediaid=MzA4MzU2MjczOF8yMjQ3NTA1NDY0
+https://res.wx.qq.com/voice/getvoice?mediaid=MzA4MzU2MjczOF8yMjQ3NTA1NDY1
+5
+https://res.wx.qq.com/voice/getvoice?mediaid=MzA4MzU2MjczOF8yMjQ3NTA1NTEx
+https://res.wx.qq.com/voice/getvoice?mediaid=MzA4MzU2MjczOF8yMjQ3NTA1NTEy
+
