@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"encoding/base64"
+	"errors"
 	"fmt"
 	"github.com/realth000/ToGoTool/html"
 	"github.com/realth000/ToGoTool/http"
@@ -88,15 +89,16 @@ func main() {
 	   https://mp.weixin.qq.com/s?__biz=MzA4MzU2MjczOA==&mid=2247514662&idx=3&sn=bfa9d32d0e0ea0fe2717c8bbb886dddf&chksm=9ff663bba881eaad2b3feb1aa44fedda4ba5a292712cb2d74ef43f23283a0b5a664af84e7386&scene=21#wechat_redirect
 	   http://mp.weixin.qq.com/s?__biz=MzA4MzU2MjczOA==&mid=2247505249&idx=5&sn=89769d90328cf26375a8dc516032fbab&chksm=9ff60cfca88185ea5aa196f7bfe6baffef655c59eb785a7d80409fd838a7ac027c65c090d272&scene=21#wechat_redirect
 	*/
-	const downloadDir = "tmp"
+	d, _ := os.Getwd()
+	downloadDir := fmt.Sprintf("%s%ctmp", d, os.PathSeparator)
 	info, err := os.Stat(downloadDir)
-	if err == os.ErrNotExist {
-		if err = os.Mkdir("tmp", 0755); err != nil {
+	if errors.Is(err, os.ErrNotExist) {
+		if err = os.Mkdir(downloadDir, 0755); err != nil {
 			fmt.Println("failed to make download directory:", err)
 			exit()
 		}
 	}
-	if (err == nil || err == os.ErrExist) && !info.IsDir() {
+	if err == nil || (errors.Is(err, os.ErrExist) && !info.IsDir()) {
 		if err = os.Remove(downloadDir); err != nil {
 			fmt.Println("failed to remove file and make download directory:", err)
 			exit()
