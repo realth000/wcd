@@ -99,7 +99,11 @@ func main() {
 		fmt.Println("invalid url:", err)
 		exit()
 	}
-	d, _ := os.Getwd()
+	d, err := os.Getwd()
+	if err != nil {
+		fmt.Println("failed to get current path:", err)
+		exit()
+	}
 	downloadDir := fmt.Sprintf("%s%ctmp", d, os.PathSeparator)
 	info, err := os.Stat(downloadDir)
 	if errors.Is(err, os.ErrNotExist) {
